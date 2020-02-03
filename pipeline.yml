@@ -29,5 +29,6 @@ jobs:
       skip_download: true
   - put: kubernetes-cluster
     params:
-      kubectl: set image deployment/{{kubernetes-deployment}} {{kubernetes-container}}={{container-image}}@$(cat container-image/digest)
+      kubectl: |
+        set image deployment ((kubernetes-deployment)) ((kubernetes-container))=$(cat container-image/repository)@$(cat container-image/digest)
       wait_until_ready: {{kubernetes-wait-until-ready}}
